@@ -144,3 +144,175 @@ export const howToUseOrderedBulkWriteOperation = async (req, res) => {
     handleMongoError(res, error);
   }
 };
+
+/**
+ * @update method
+ * @description here i tell that how to use update method to update the document.
+ */
+export const howToUseUpdateMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    /** update() method was removed in latest mongodb Driver so, we can use updateOne() and updateMany() method only. */
+
+    /**
+     * syntax 
+     * db.Collection_name.updateOne({Selection_Criteria},{$set:{Update_Data}}, 
+          {
+              upsert: <boolean>,
+              writeConcern: <document>,
+              collation: <document>,
+              arrayFilters: [<filterdocument1>, ... ],
+              hint: <document|string>        
+          })
+     */
+
+    /** it is standard way to update the document */
+    const user = await userCollection.updateOne(
+      { name: "test3" },
+      { $set: { name: "test5" } }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "user is updated successfully",
+      user,
+    });
+  } catch (error) {
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @update method with @upsert parameter
+ * @description here i tell that how to use @upsert parameter. so, basically upsert flag is boolean value it is by default is 'false' and when we set it to 'true' then if find the document which we passed criteria if it is not found then it will create that document in collection.
+ */
+export const howToUseUpdateMethodWithUpsertParameter = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    const user = await userCollection.updateOne(
+      { name: "test20" },
+      { $set: { name: "test10" } },
+      {
+        upsert: true,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "user is updated successfully",
+      user,
+    });
+  } catch (error) {
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @update method with @collation parameter
+ * @description here i tell that how to use @collation parameter. so, basically collation Collation allows users to specify language-specific rules for string comparison, such as rules for lettercase and accent marks.
+ */
+export const howToUseUpdateMethodWithCollationParameter = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    const user = await userCollection.updateOne(
+      { name: "TesT13" },
+      { $set: { name: "test13" } },
+      {
+        collation: { locale: "en", strength: 2 },
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "user is updated successfully",
+      user,
+    });
+  } catch (error) {
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @updateMany method
+ * @description here, we show how to use updateMany method to update multipe document together.
+ */
+export const howToUseUpdateManyMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    /**
+     * syntax
+     * db.Collection_name.updateMany({Selection_Criteria},{$set:{Update_Data}}, 
+        {
+            upsert: <boolean>,
+            multi: <boolean>,
+            writeConcern: <document>,
+            collation: <document>,
+            arrayFilters: [<filterdocument1>, ... ],
+            hint: <document|string>        
+        })
+     */
+
+    const user = await userCollection.updateMany(
+      { age: 24 },
+      { $set: { age: 25 } }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "user is updated successfully",
+      user,
+    });
+  } catch (error) {
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @findOneAndUpdate method
+ * @description here, we show how to use findOneAndUpdate method to update the document.
+ */
+export const howToUseFindOneAndUpdate = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    const user = await userCollection.findOneAndUpdate(
+      {
+        name: "test21",
+      },
+      { $set: { name: "test30" } }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "user is updated successfully",
+      user,
+    });
+  } catch (error) {
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @findOneAndDelete method
+ * @description here, we show how to use findOneAndDelete method to update the document.
+ */
+export const howToUseFindOneAndDelete = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    await userCollection.findOneAndDelete({
+      name: "test30",
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "user is deleted successfully",
+    });
+  } catch (error) {
+    handleMongoError(res, error);
+  }
+};
