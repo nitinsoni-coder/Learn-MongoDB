@@ -2,6 +2,7 @@ const UserModel = {
   validator: {
     $jsonSchema: {
       bsonType: "object",
+      required: ["name", "email", "mobile", "age", "address"],
       properties: {
         name: {
           bsonType: "string",
@@ -24,6 +25,7 @@ const UserModel = {
         },
         address: {
           bsonType: "object",
+          required: ["street_address", "city", "state", "country"],
           properties: {
             street_address: {
               bsonType: "string",

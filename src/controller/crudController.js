@@ -323,7 +323,7 @@ export const howToUseFindOneAndDelete = async (req, res) => {
 
 /**
  * @findOneAndReplace method
- * @description here, we show how to use findOneAndReplace method to update the document.
+ * @description here, we show how to use findOneAndReplace method to replace the existing document detail on behalf of filter.
  */
 export const howToUseFindOneAndReplace = async (req, res) => {
   try {
@@ -336,11 +336,48 @@ export const howToUseFindOneAndReplace = async (req, res) => {
         age: 25,
         email: "ajay@gmail.com",
         mobile: "515151515",
-        "address.street_address": "vaishali nagar",
-        "address.city": "jaipur",
-        "address.state": "rajasthan",
-        "address.country": "india",
+        address: {
+          street_address: "vaishali nagar",
+          city: "jaipur",
+          state: "rajasthan",
+          country: "india",
+        },
       }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "user is updated successfully",
+    });
+  } catch (error) {
+    console.log("error", JSON.stringify(error));
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @findOneAndReplace method with @returnDocument option
+ * @description here, we show how to use findOneAndReplace method with returnDocument parameter to replace the existing document detail on behalf of filter.
+ */
+export const howToUseFindOneAndReplaceWithReturnDocument = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    const user = await userCollection.findOneAndReplace(
+      { age: 34 },
+      {
+        name: "rahul",
+        age: 25,
+        email: "rahul@gmail.com",
+        mobile: "515441515",
+        address: {
+          street_address: "vaishali nagar",
+          city: "jaipur",
+          state: "rajasthan",
+          country: "india",
+        },
+      },
+      { returnDocument: "after" }
     );
 
     res.status(200).json({
@@ -352,4 +389,27 @@ export const howToUseFindOneAndReplace = async (req, res) => {
     console.log("error", JSON.stringify(error));
     handleMongoError(res, error);
   }
+};
+
+/**
+ * @sort method
+ * @description sort method is basically used to sort the data ascending and descending on the basis of field.
+ */
+export const howToUseSort = async (req, res) => {
+  const userCollection = await connectToUserCollection();
+
+  // this is ascending order case
+  const ascendingOrder = await userCollection.find().sort({ age: 1 }).toArray();
+
+  //this is desecnding order case
+  const descendingOrder = await userCollection
+    .find()
+    .sort({ age: -1 })
+    .toArray();
+
+  res.status(200).json({
+    success: true,
+    ascendingOrder,
+    descendingOrder,
+  });
 };

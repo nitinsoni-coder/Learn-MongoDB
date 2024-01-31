@@ -13,6 +13,8 @@ import {
   howToUseFindOneAndUpdate,
   howToUseFindOneAndDelete,
   howToUseFindOneAndReplace,
+  howToUseFindOneAndReplaceWithReturnDocument,
+  howToUseSort,
 } from "../controller/crudController.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
@@ -61,5 +63,10 @@ router.post(
   "/howToUseFindOneAndReplace",
   asyncHandler(howToUseFindOneAndReplace)
 );
+router.post(
+  "/howToUseFindOneAndReplaceWithReturnDocument",
+  asyncHandler(howToUseFindOneAndReplaceWithReturnDocument)
+);
 
+router.post("/howToUseSort", asyncHandler(howToUseSort));
 export default router;
