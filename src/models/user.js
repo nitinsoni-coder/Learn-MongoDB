@@ -2,7 +2,6 @@ const UserModel = {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["name", "email", "mobile", "age", "address"],
       properties: {
         name: {
           bsonType: "string",
@@ -20,11 +19,11 @@ const UserModel = {
         age: {
           bsonType: "int",
           minimum: 0,
-          description: "Age must be an integer greater than or equal to 0 and is required",
+          description:
+            "Age must be an integer greater than or equal to 0 and is required",
         },
         address: {
           bsonType: "object",
-          required: ["street_address", "city", "state", "country"],
           properties: {
             street_address: {
               bsonType: "string",
@@ -47,5 +46,5 @@ const UserModel = {
       },
     },
   },
-}
-export default UserModel
+};
+export default UserModel;

@@ -12,6 +12,7 @@ import {
   howToUseUpdateMethodWithCollationParameter,
   howToUseFindOneAndUpdate,
   howToUseFindOneAndDelete,
+  howToUseFindOneAndReplace,
 } from "../controller/crudController.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
@@ -56,4 +57,9 @@ router.post(
   "/howToUseFindOneAndDelete",
   asyncHandler(howToUseFindOneAndDelete)
 );
+router.post(
+  "/howToUseFindOneAndReplace",
+  asyncHandler(howToUseFindOneAndReplace)
+);
+
 export default router;

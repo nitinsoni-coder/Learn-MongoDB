@@ -32,14 +32,18 @@ export const howToUseInsertOneQuery = async (req, res) => {
  * @description here i tell that how to use insertMany method to insert a documents.
  */
 export const howToUseInsertManyQuery = async (req, res) => {
-  const userCollection = await connectToUserCollection();
-  const user = await userCollection.insertMany(req.body);
+  try {
+    const userCollection = await connectToUserCollection();
+    const user = await userCollection.insertMany(req.body);
 
-  res.status(200).json({
-    success: true,
-    message: "user is inserted successfully",
-    user,
-  });
+    res.status(200).json({
+      success: true,
+      message: "user is inserted successfully",
+      user,
+    });
+  } catch (error) {
+    console.log("error:", error);
+  }
 };
 
 /**
@@ -313,6 +317,39 @@ export const howToUseFindOneAndDelete = async (req, res) => {
       message: "user is deleted successfully",
     });
   } catch (error) {
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @findOneAndReplace method
+ * @description here, we show how to use findOneAndReplace method to update the document.
+ */
+export const howToUseFindOneAndReplace = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    const user = await userCollection.findOneAndReplace(
+      { age: 24 },
+      {
+        name: "ajay",
+        age: 25,
+        email: "ajay@gmail.com",
+        mobile: "515151515",
+        "address.street_address": "vaishali nagar",
+        "address.city": "jaipur",
+        "address.state": "rajasthan",
+        "address.country": "india",
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "user is updated successfully",
+      user,
+    });
+  } catch (error) {
+    console.log("error", JSON.stringify(error));
     handleMongoError(res, error);
   }
 };
