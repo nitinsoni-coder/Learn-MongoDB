@@ -14,7 +14,8 @@ import {
   howToUseFindOneAndDelete,
   howToUseFindOneAndReplace,
   howToUseFindOneAndReplaceWithReturnDocument,
-  howToUseSort,
+  howToUseSortMethod,
+  howToUseCountMethod,
 } from "../controller/crudController.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
@@ -68,5 +69,7 @@ router.post(
   asyncHandler(howToUseFindOneAndReplaceWithReturnDocument)
 );
 
-router.post("/howToUseSort", asyncHandler(howToUseSort));
+router.post("/howToUseSort", asyncHandler(howToUseSortMethod));
+
+router.post("/howToUseCount", asyncHandler(howToUseCountMethod));
 export default router;

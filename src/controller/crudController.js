@@ -393,23 +393,51 @@ export const howToUseFindOneAndReplaceWithReturnDocument = async (req, res) => {
 
 /**
  * @sort method
- * @description sort method is basically used to sort the data ascending and descending on the basis of field.
+ * @description This method is basically used to sort the data ascending and descending on the basis of field.
  */
-export const howToUseSort = async (req, res) => {
-  const userCollection = await connectToUserCollection();
+export const howToUseSortMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
 
-  // this is ascending order case
-  const ascendingOrder = await userCollection.find().sort({ age: 1 }).toArray();
+    // this is ascending order case
+    const ascendingOrder = await userCollection
+      .find()
+      .sort({ age: 1 })
+      .toArray();
 
-  //this is desecnding order case
-  const descendingOrder = await userCollection
-    .find()
-    .sort({ age: -1 })
-    .toArray();
+    //this is desecnding order case
+    const descendingOrder = await userCollection
+      .find()
+      .sort({ age: -1 })
+      .toArray();
 
-  res.status(200).json({
-    success: true,
-    ascendingOrder,
-    descendingOrder,
-  });
+    res.status(200).json({
+      success: true,
+      ascendingOrder,
+      descendingOrder,
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @count method
+ * @description This method is basically used to count the on the basis of condition from the table and also give no. of document count present in a collection.
+ */
+export const howToUseCountMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    const userCount = await userCollection.count();
+
+    res.status(200).json({
+      success: true,
+      userCount,
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
 };
