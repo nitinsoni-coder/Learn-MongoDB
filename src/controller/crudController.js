@@ -1,12 +1,6 @@
-import { client, dbName } from "../DB/connection.js";
+import { connectToUserCollection } from "../utils/helper.js";
 import handleMongoError from "../utils/handleError.js";
-
-async function connectToUserCollection() {
-  const database = client.db(dbName);
-  const UserCollection = database.collection("users");
-  // const userCollection = database.createCollection('users', UserModel)
-  return UserCollection;
-}
+import { ObjectId } from "mongodb";
 
 /**
  * @insertOne method
@@ -15,6 +9,7 @@ async function connectToUserCollection() {
 export const howToUseInsertOneQuery = async (req, res) => {
   try {
     const userCollection = await connectToUserCollection();
+
     const user = await userCollection.insertOne(req.body);
 
     res.status(200).json({
@@ -431,6 +426,28 @@ export const howToUseCountMethod = async (req, res) => {
     const userCollection = await connectToUserCollection();
 
     const userCount = await userCollection.count();
+    const ageCount = await userCollection.count({ age: { $gt: 25 } });
+
+    res.status(200).json({
+      success: true,
+      // userCount,
+      ageCount,
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @countDocument method
+ * @description This method is basically similar to count method so the key difference between both of them is that count method is deprecated after mongoDB 4.0 version.
+ */
+export const howToUseCountDocumentMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    const userCount = await userCollection.countDocuments({});
 
     res.status(200).json({
       success: true,
@@ -441,3 +458,121 @@ export const howToUseCountMethod = async (req, res) => {
     handleMongoError(res, error);
   }
 };
+
+/**
+ * @drop method
+ * @description This method is used to drop the collection from the table.
+ */
+export const howToUseDropMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    await userCollection.drop();
+
+    res.status(200).json({
+      success: true,
+      message: "collection is droped successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @deleteOne method
+ * @description This method is used to remove the document which matches the criteria.
+ */
+export const howToUseDeleteOneMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    await userCollection.deleteOne({ name: "test2" });
+
+    res.status(200).json({
+      success: true,
+      message: "document is removed successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @distinct method
+ * @description This method is used to find distinct values from the document which matches the criteria.
+ */
+export const howToUseDistinctMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    /**  Syntax :
+     * db.Collection_name.distinct(
+          field : <string>,
+          query : <document>,
+          collation : <document> 
+      )
+     */
+
+    // const userName = await userCollection.distinct("name");
+    const userName = await userCollection.distinct("age", { age: { $gt: 20 } }); // when we have to get the age on the basis of condition.
+
+    res.status(200).json({
+      success: true,
+      userName,
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @limit method
+ * @description This method is used to limit the document when you get performing operation.
+ */
+export const howToUseLimitMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    const users = await userCollection.find().limit(2).toArray();
+
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @skip method
+ * @description This method is used to skip the document when you get performing operation.
+ */
+export const howToUseSkipMethod = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+
+    const users = await userCollection.find().skip(2).toArray();
+
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @ObjectId
+ * @description we can create unique id using mongoDb in nodejs, we dont need to use any unique id library for creating an id.
+ */
+function createUniqueId() {
+  const uuid = new ObjectId();
+  console.log("uuid : ", uuid);
+}

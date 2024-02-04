@@ -45,6 +45,18 @@ const UserModel = {
             },
           },
         },
+        firstSalary: {
+          bsonType: "int",
+          minimum: 0,
+          description:
+            "first salary should be integer greater than or equal to 0 is required",
+        },
+        secondSalary: {
+          bsonType: "int",
+          minimum: 0,
+          description:
+            "second salary should be integer greater than or equal to 0 is required",
+        },
       },
     },
   },
