@@ -24,8 +24,24 @@ import {
   howToUseSkipMethod,
 } from "../controller/crudController.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import { howToUseCmpOperator, howToUseEqOperator, howToUseGtOperator, howToUseGteOperator, howToUseInOperator, howToUseLtOperator, howToUseLteOperator, howToUseNeOperator, howToUseNinOperator } from "../controller/comparisonController.js";
-import { howToUseAndOperator, howToUseNorOperator, howToUseNotOperator, howToUseOrOperator } from "../controller/logicalController.js";
+import {
+  howToUseCmpOperator,
+  howToUseEqOperator,
+  howToUseGtOperator,
+  howToUseGteOperator,
+  howToUseInOperator,
+  howToUseLtOperator,
+  howToUseLteOperator,
+  howToUseNeOperator,
+  howToUseNinOperator,
+} from "../controller/comparisonController.js";
+import {
+  howToUseAndOperator,
+  howToUseNorOperator,
+  howToUseNotOperator,
+  howToUseOrOperator,
+} from "../controller/logicalController.js";
+import { howToUseAddOperator } from "../controller/arithmeticController.js";
 
 const router = express.Router();
 
@@ -96,7 +112,6 @@ router.post("/howToUseLimitMethod", asyncHandler(howToUseLimitMethod));
 
 router.post("/howToUseSkipMethod", asyncHandler(howToUseSkipMethod));
 
-
 // comparison operator routes
 router.post("/howToUseCmpOperator", asyncHandler(howToUseCmpOperator));
 router.post("/howToUseGtOperator", asyncHandler(howToUseGtOperator));
@@ -109,9 +124,12 @@ router.post("/howToUseInOperator", asyncHandler(howToUseInOperator));
 router.post("/howToUseNinOperator", asyncHandler(howToUseNinOperator));
 
 //logical operator routes
-router.post("/howToUseAndOperator", asyncHandler(howToUseAndOperator))
-router.post("/howToUseOrOperator", asyncHandler(howToUseOrOperator))
-router.post("/howToUseNotOperator", asyncHandler(howToUseNotOperator))
-router.post("/howToUseNorOperator", asyncHandler(howToUseNorOperator))
+router.post("/howToUseAndOperator", asyncHandler(howToUseAndOperator));
+router.post("/howToUseOrOperator", asyncHandler(howToUseOrOperator));
+router.post("/howToUseNotOperator", asyncHandler(howToUseNotOperator));
+router.post("/howToUseNorOperator", asyncHandler(howToUseNorOperator));
+
+//arithematic operator routes
+router.post("/howToUseAddOperator", asyncHandler(howToUseAddOperator));
 
 export default router;
