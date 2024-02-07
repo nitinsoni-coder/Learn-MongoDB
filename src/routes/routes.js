@@ -41,7 +41,15 @@ import {
   howToUseNotOperator,
   howToUseOrOperator,
 } from "../controller/logicalController.js";
-import { howToUseAddOperator } from "../controller/arithmeticController.js";
+import {
+  howToUseAbsOperator,
+  howToUseAddOperator,
+  howToUseAddOperatorForTime,
+  howToUseDivideOperator,
+  howToUseFloorOperator,
+  howToUseMultiplyOperator,
+  howToUseSubtractOperator,
+} from "../controller/arithmeticController.js";
 
 const router = express.Router();
 
@@ -131,5 +139,19 @@ router.post("/howToUseNorOperator", asyncHandler(howToUseNorOperator));
 
 //arithematic operator routes
 router.post("/howToUseAddOperator", asyncHandler(howToUseAddOperator));
-
+router.post(
+  "/howToUseAddOperatorForTime",
+  asyncHandler(howToUseAddOperatorForTime)
+);
+router.post(
+  "/howToUseSubtractOperator",
+  asyncHandler(howToUseSubtractOperator)
+);
+router.post(
+  "/howToUseMultiplyOperator",
+  asyncHandler(howToUseMultiplyOperator)
+);
+router.post("/howToUseDivideOperator", asyncHandler(howToUseDivideOperator));
+router.post("/howToUseAbsOperator", asyncHandler(howToUseAbsOperator));
+router.post("/howToUseFloorOperator", asyncHandler(howToUseFloorOperator));
 export default router;
