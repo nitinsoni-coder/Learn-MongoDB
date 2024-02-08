@@ -45,9 +45,17 @@ import {
   howToUseAbsOperator,
   howToUseAddOperator,
   howToUseAddOperatorForTime,
+  howToUseCeilOperator,
   howToUseDivideOperator,
+  howToUseExpOperator,
   howToUseFloorOperator,
+  howToUseLnOperator,
+  howToUseLog10Operator,
+  howToUseLogOperator,
+  howToUseModOperator,
   howToUseMultiplyOperator,
+  howToUsePowOperator,
+  howToUseSqrtOperator,
   howToUseSubtractOperator,
 } from "../controller/arithmeticController.js";
 
@@ -154,4 +162,15 @@ router.post(
 router.post("/howToUseDivideOperator", asyncHandler(howToUseDivideOperator));
 router.post("/howToUseAbsOperator", asyncHandler(howToUseAbsOperator));
 router.post("/howToUseFloorOperator", asyncHandler(howToUseFloorOperator));
+router.post("/howToUseCeilOperator", asyncHandler(howToUseCeilOperator));
+router.post("/howToUseModOperator", asyncHandler(howToUseModOperator));
+router.post("/howToUseSqrtOperator", asyncHandler(howToUseSqrtOperator));
+router.post("/howToUsePowOperator", asyncHandler(howToUsePowOperator));
+router.post("/howToUseExpOperator", asyncHandler(howToUseExpOperator));
+router.post("/howToUseLogOperator", asyncHandler(howToUseLogOperator));
+router.post("/howToUseLog10Operator", asyncHandler(howToUseLog10Operator));
+router.post("/howToUseLnOperator", asyncHandler(howToUseLnOperator));
+
+//field update operator routes
+
 export default router;

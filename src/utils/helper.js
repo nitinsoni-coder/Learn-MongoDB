@@ -6,15 +6,12 @@ export async function connectToUserCollection() {
     const database = client.db(dbName);
     const collections = await database.listCollections().toArray();
 
-    console.log("collections : ", collections);
     const isUserCollectionExist = collections.some(
       (collectionName) => collectionName.name === "users"
     );
 
-    console.log("isUserCollectionExist : ", isUserCollectionExist);
-
     if (!isUserCollectionExist) {
-      const userCollection = database.createCollection("users", UserModel);
+       database.createCollection("users", UserModel);
     }
     const UserCollection = database.collection("users");
     await database.command({
