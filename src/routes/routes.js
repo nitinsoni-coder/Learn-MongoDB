@@ -58,6 +58,15 @@ import {
   howToUseSqrtOperator,
   howToUseSubtractOperator,
 } from "../controller/arithmeticController.js";
+import {
+  howToUseCurrentDateOperator,
+  howToUseIncOperator,
+  howToUseMaxOperator,
+  howToUseMinOperator,
+  howToUseMulOperator,
+  howToUseRenameOperator,
+  howToUseSetOnInsertOperator,
+} from "../controller/FieldController.js";
 
 const router = express.Router();
 
@@ -172,5 +181,18 @@ router.post("/howToUseLog10Operator", asyncHandler(howToUseLog10Operator));
 router.post("/howToUseLnOperator", asyncHandler(howToUseLnOperator));
 
 //field update operator routes
+router.post(
+  "/howToUseCurrentDateOperator",
+  asyncHandler(howToUseCurrentDateOperator)
+);
+router.post("/howToUseIncOperator", asyncHandler(howToUseIncOperator));
+router.post("/howToUseMinOperator", asyncHandler(howToUseMinOperator));
+router.post("/howToUseMaxOperator", asyncHandler(howToUseMaxOperator));
+router.post("/howToUseMulOperator", asyncHandler(howToUseMulOperator));
+router.post("/howToUseRenameOperator", asyncHandler(howToUseRenameOperator));
+router.post(
+  "/howToUseSetOnInsertOperator",
+  asyncHandler(howToUseSetOnInsertOperator)
+);
 
 export default router;
