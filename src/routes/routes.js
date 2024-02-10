@@ -67,7 +67,13 @@ import {
   howToUseRenameOperator,
   howToUseSetOnInsertOperator,
 } from "../controller/FieldController.js";
-import { howToUseIsArrayOperator } from "../controller/arrayExpressionController.js";
+import {
+  howToUseArrayElemAtOperator,
+  howToUseConcatArraysOperator,
+  howToUseIsArrayOperator,
+  howToUseReverseArraysOperator,
+  howToUseSizeOperator,
+} from "../controller/arrayExpressionController.js";
 
 const router = express.Router();
 
@@ -198,5 +204,18 @@ router.post(
 
 //Array expression operator
 router.post("/howToUseIsArrayOperator", asyncHandler(howToUseIsArrayOperator));
+router.post("/howToUseSizeOperator", asyncHandler(howToUseSizeOperator));
+router.post(
+  "/howToUseArrayElemAtOperator",
+  asyncHandler(howToUseArrayElemAtOperator)
+);
+router.post(
+  "/howToUseConcatArraysOperator",
+  asyncHandler(howToUseConcatArraysOperator)
+);
+router.post(
+  "/howToUseReverseArraysOperator",
+  asyncHandler(howToUseReverseArraysOperator)
+);
 
 export default router;
