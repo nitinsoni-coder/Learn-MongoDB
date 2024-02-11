@@ -74,6 +74,13 @@ import {
   howToUseReverseArraysOperator,
   howToUseSizeOperator,
 } from "../controller/arrayExpressionController.js";
+import {
+  howToUsePopOperator,
+  howToUsePullAllOperator,
+  howToUsePullOperator,
+  howToUsePushOperator,
+  howToUsePushOperatorWithModifiers,
+} from "../controller/arrayUpdateController.js";
 
 const router = express.Router();
 
@@ -216,6 +223,16 @@ router.post(
 router.post(
   "/howToUseReverseArraysOperator",
   asyncHandler(howToUseReverseArraysOperator)
+);
+
+//Array update operator
+router.post("/howToUsePullOperator", asyncHandler(howToUsePullOperator));
+router.post("/howToUsePopOperator", asyncHandler(howToUsePopOperator));
+router.post("/howToUsePullAllOperator", asyncHandler(howToUsePullAllOperator));
+router.post("/howToUsePushOperator", asyncHandler(howToUsePushOperator));
+router.post(
+  "/howToUsePushOperatorWithModifiers",
+  asyncHandler(howToUsePushOperatorWithModifiers)
 );
 
 export default router;
