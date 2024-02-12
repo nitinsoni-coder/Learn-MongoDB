@@ -113,3 +113,79 @@ export const howToUsePushOperatorWithModifiers = async (req, res) => {
     handleMongoError(res, error);
   }
 };
+
+/**
+ * @$positonal operator
+ * @description here, i will tell how to use $ positonal operator. basically it is used to update the specific field from the array whose position we dont know.
+ */
+export const howToUsePositionalOperator = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+    const user = await userCollection.updateOne(
+      { name: "demo5", fruits: "grapes" },
+      { $set: { "fruits.$": "blueberry" } }
+    );
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @$position operator
+ * @description here, i will tell how to use $position operator. basically it is used to push the item in specific position.
+ */
+export const howToUsePositionOperator = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+    const user = await userCollection.updateOne(
+      { name: "demo5" },
+      {
+        $push: {
+          fruits: {
+            $each: ["grapes"],
+            $position: 2,
+          },
+        },
+      }
+    );
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};
+
+/**
+ * @$addToset operator
+ * @description here, i will tell how to use $addToset operator. basically it is used to set the item in the array and if that field is not present with array then it will create an new array with that item.
+ */
+export const howToUseAddToSetOperator = async (req, res) => {
+  try {
+    const userCollection = await connectToUserCollection();
+    const user = await userCollection.updateOne(
+      { name: "demo5" },
+      {
+        $addToSet: {
+          fruits: {
+            $each: ["avacado", "litchi"],
+          },
+        },
+      }
+    );
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log("error", error);
+    handleMongoError(res, error);
+  }
+};

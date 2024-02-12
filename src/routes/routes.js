@@ -75,12 +75,21 @@ import {
   howToUseSizeOperator,
 } from "../controller/arrayExpressionController.js";
 import {
+  howToUseAddToSetOperator,
   howToUsePopOperator,
+  howToUsePositionOperator,
+  howToUsePositionalOperator,
   howToUsePullAllOperator,
   howToUsePullOperator,
   howToUsePushOperator,
   howToUsePushOperatorWithModifiers,
 } from "../controller/arrayUpdateController.js";
+import {
+  howToUseConcatStringOperator,
+  howToUseStrCaseCmpStringOperator,
+  howToUseToLowerStringOperator,
+  howToUseToUpperStringOperator,
+} from "../controller/stringExpressionController.js";
 
 const router = express.Router();
 
@@ -234,5 +243,34 @@ router.post(
   "/howToUsePushOperatorWithModifiers",
   asyncHandler(howToUsePushOperatorWithModifiers)
 );
+router.post(
+  "/howToUsePositionalOperator",
+  asyncHandler(howToUsePositionalOperator)
+);
+router.post(
+  "/howToUsePositionOperator",
+  asyncHandler(howToUsePositionOperator)
+);
+router.post(
+  "/howToUseAddToSetOperator",
+  asyncHandler(howToUseAddToSetOperator)
+);
 
+//string expression operator
+router.post(
+  "/howToUseConcatStringOperator",
+  asyncHandler(howToUseConcatStringOperator)
+);
+router.post(
+  "/howToUseStrCaseCmpStringOperator",
+  asyncHandler(howToUseStrCaseCmpStringOperator)
+);
+router.post(
+  "/howToUseToUpperStringOperator",
+  asyncHandler(howToUseToUpperStringOperator)
+);
+router.post(
+  "/howToUseToLowerStringOperator",
+  asyncHandler(howToUseToLowerStringOperator)
+);
 export default router;
